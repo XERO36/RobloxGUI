@@ -29,7 +29,7 @@ local vim = game:GetService("VirtualInputManager")
 -- Always get a valid character + HRP
 
 local function type(text)
- local text = "HeLlO"
+ 
 
 for i = 1, #text do
     local char = text:sub(i, i)
