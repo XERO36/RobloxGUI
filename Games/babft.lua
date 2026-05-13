@@ -1,5 +1,11 @@
 local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
+
+local lp = game.Players.LocalPlayer
+local pgui = lp.PlayerGui
+local it = lp.Backpack
+local w = workspace
+local rs = game:GetService("ReplicatedStorage")
 
 local positions = {
     CFrame.new(-51.5656433, 65.0000458, 1369.09009),
@@ -17,7 +23,7 @@ local positions = {
 
 -- Always get a valid character + HRP
 local function getHRP()
-    local character = player.Character or player.CharacterAdded:Wait()
+    local character = lp.Character or lp.CharacterAdded:Wait()
     return character:WaitForChild("HumanoidRootPart")
 end
 local function startLoop()
@@ -30,7 +36,7 @@ local function startLoop()
 
             for _, pos in ipairs(positions) do
                 if not running then break end
-                if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then break end
+                if not lp.Character or not lp.Character:FindFirstChild("HumanoidRootPart") then break end
 
                 hrp = getHRP()
                 hrp.CFrame = pos
@@ -47,8 +53,3 @@ local function stopLoop()
     running = false
 end
 
-local lp = game.Players.LocalPlayer
-local pgui = lp.PlayerGui
-local it = lp.Backpack
-local w = workspace
-local rs = game:GetService("ReplicatedStorage")
