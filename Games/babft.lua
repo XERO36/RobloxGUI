@@ -26,7 +26,7 @@ local BABFT_Codes = {
     "chillthrill709 was here"
 }
 local vim = game:GetService("VirtualInputManager")
--- Always get a valid character + HRP
+
 
 local function type(text)
  
@@ -61,7 +61,7 @@ for i = 1, #text do
     end
 end
 end
-
+-- Always get a valid character + HRP
 local function getHRP()
     local character = lp.Character or lp.CharacterAdded:Wait()
     return character:WaitForChild("HumanoidRootPart")
