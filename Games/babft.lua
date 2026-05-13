@@ -18,7 +18,13 @@ local positions = {
     CFrame.new(-51.5656433, 65.0000458, 8299.08984),
     CFrame.new(-55.7065125, -358.739624, 9492.35645, 0, 0, -1, 0, 1, 0, 1, 0, 0)
 }
-
+local BABFT_Codes = {
+    "hi",
+    "=D",
+    "=P",
+    "Squid Army",
+    "chillthrill709 was here"
+}
 -- Always get a valid character + HRP
 local function getHRP()
     local character = lp.Character or lp.CharacterAdded:Wait()
