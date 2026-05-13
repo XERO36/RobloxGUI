@@ -1,6 +1,4 @@
 local Players = game:GetService("Players")
-
-
 local lp = game.Players.LocalPlayer
 local pgui = lp.PlayerGui
 local it = lp.Backpack
