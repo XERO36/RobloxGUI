@@ -25,6 +25,7 @@ local BABFT_Codes = {
     "Squid Army",
     "chillthrill709 was here"
 }
+local vim = game:GetService("VirtualInputManager")
 -- Always get a valid character + HRP
 local function getHRP()
     local character = lp.Character or lp.CharacterAdded:Wait()
