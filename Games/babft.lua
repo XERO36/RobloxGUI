@@ -27,6 +27,41 @@ local BABFT_Codes = {
 }
 local vim = game:GetService("VirtualInputManager")
 -- Always get a valid character + HRP
+
+local function type(text)
+ local text = "HeLlO"
+
+for i = 1, #text do
+    local char = text:sub(i, i)
+    local upper = char:upper()
+
+    local key = Enum.KeyCode[upper]
+
+    if key then
+        local isUpper = (char ~= char:lower())
+
+        -- hold shift if uppercase
+        if isUpper then
+            vim:SendKeyEvent(true, Enum.KeyCode.LeftShift, false, game)
+        end
+
+        -- key down
+        vim:SendKeyEvent(true, key, false, game)
+        task.wait(0.05)
+
+        -- key up
+        vim:SendKeyEvent(false, key, false, game)
+
+        -- release shift
+        if isUpper then
+            vim:SendKeyEvent(false, Enum.KeyCode.LeftShift, false, game)
+        end
+
+        task.wait(0.05)
+    end
+end
+end
+
 local function getHRP()
     local character = lp.Character or lp.CharacterAdded:Wait()
     return character:WaitForChild("HumanoidRootPart")
