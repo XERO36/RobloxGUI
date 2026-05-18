@@ -1,76 +1,122 @@
-local is_adonis = false
-local lp = game.Players.LocalPlayer
-local rs = game:GetService 'ReplicatedStorage'
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local function check_adonis(o)
-	if not o:isA 'RemoteEvent' then return false end
-	local f = o:FindFirstChildWhichIsA 'RemoteFunction'
-	if f.Name ~= '__FUNCTION' then return false end
-	is_adonis = true
+local LocalPlayer = Players.LocalPlayer
+
+local isAdonis = false
+
+--// Detect Adonis
+local function checkAdonis(obj)
+	if not obj:IsA("RemoteEvent") then
+		return false
+	end
+
+	local func = obj:FindFirstChildWhichIsA("RemoteFunction")
+
+	if not func then
+		return false
+	end
+
+	if func.Name ~= "__FUNCTION" then
+		return false
+	end
+
+	isAdonis = true
+
+	print("[AntiKick] Adonis detected")
+
 	return true
 end
 
-repeat task.wait() until game:IsLoaded()
-for _, o in next, rs:GetDescendants() do check_adonis(o) end
+--// Wait for game load
+repeat
+	task.wait()
+until game:IsLoaded()
 
-if not is_adonis then
-	_G.adonis_checker = rs.ChildAdded:Connect(
-		function(o)
-			task.wait()
-			if not check_adonis(o) then return end
-			_G.adonis_checker:Disconnect()
-			_G.adonis_checker = nil
-		end)
+--// Initial scan
+for _, obj in ipairs(ReplicatedStorage:GetDescendants()) do
+	checkAdonis(obj)
 end
 
-task.spawn(
-	function()
-		hookfunction(
-			lp.Destroy, newcclosure(
-				function(...)
-					local args = {...}
-					if checkcaller() then return end
-					return task.wait(9e9)
-				end))
-		if not is_adonis then
-			hookfunction(
-				lp.Kick, newcclosure(
-					function(...)
-						local args = {...}
-						if checkcaller() or is_adonis then return end
-						return task.wait(9e9)
-					end))
+--// Watch for Adonis loading later
+if not isAdonis then
+	local connection
+
+	connection = ReplicatedStorage.ChildAdded:Connect(function(obj)
+		task.wait()
+
+		if checkAdonis(obj) then
+			connection:Disconnect()
 		end
 	end)
+end
 
-local old_nc
-old_nc = hookmetamethod(
-	game, '__namecall', newcclosure(
-		function(self, ...)
-			local kscriptz, kscript
-			local method = string.lower(getnamecallmethod())
-			if self ~= lp or checkcaller() then return end
+--// Utility logger
+local function logBlock(action)
+	local callingScript = getcallingscript()
 
-			if method == 'kick' then
-				kscriptz = getcallingscript()
-				if kscriptz then
-					kscript = kscriptz:GetFullName()
-				else
-					kscript = 'Couldn\'t fetch'
-				end
-				print(string.format('Blocked kick from "%s"', tostring(kscript)))
-				return task.wait(9e9)
+	local source = callingScript
+		and callingScript:GetFullName()
+		or "Unknown"
 
-			elseif method == 'destroy' then
-				kscriptz = getcallingscript()
-				if kscriptz then
-					kscript = kscriptz:GetFullName()
-				else
-					kscript = 'Couldn\'t fetch'
-				end
-				print(string.format('Blocked kick from "%s"', tostring(kscript)))
-				return task.wait(9e9)
-			end
+	print(string.format(
+		"[AntiKick] Blocked %s from: %s",
+		action,
+		source
+	))
+end
 
-			return old_nc(self, ...)
-		end))
+--// Hook :Kick()
+local oldKick
+oldKick = hookfunction(LocalPlayer.Kick, newcclosure(function(self, ...)
+	if checkcaller() then
+		return oldKick(self, ...)
+	end
+
+	logBlock("Kick")
+
+	return task.wait(9e9)
+end))
+
+--// Hook :Destroy()
+local oldDestroy
+oldDestroy = hookfunction(LocalPlayer.Destroy, newcclosure(function(self, ...)
+	if checkcaller() then
+		return oldDestroy(self, ...)
+	end
+
+	logBlock("Destroy")
+
+	return task.wait(9e9)
+end))
+
+--// Hook __namecall
+local oldNamecall
+
+oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+	if checkcaller() then
+		return oldNamecall(self, ...)
+	end
+
+	local method = getnamecallmethod()
+
+	if typeof(method) == "string" then
+		method = method:lower()
+	end
+
+	if self == LocalPlayer then
+		if method == "kick" then
+			logBlock("Kick (__namecall)")
+			return task.wait(9e9)
+		end
+
+		if method == "destroy" then
+			logBlock("Destroy (__namecall)")
+			return task.wait(9e9)
+		end
+	end
+
+	return oldNamecall(self, ...)
+end))
+
+print("[AntiKick] Loaded successfully")
