@@ -11,7 +11,7 @@ To use the library, make sure the script handles loading the main module table.
 
 ```lua
 -- Example layout setup if loading inline
-local imgui = {} -- Your library code goes here
+local imgui = loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/CustomImGUI/source.lua"))()
 
 ```
 
