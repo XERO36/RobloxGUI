@@ -27,9 +27,6 @@ local BABFT_Codes = {
 }
 local vim = game:GetService("VirtualInputManager")
 
-
-local vim = game:GetService("VirtualInputManager")
-
 local shift = Enum.KeyCode.LeftShift
 
 local keyMap = {
