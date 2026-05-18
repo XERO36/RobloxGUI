@@ -5,6 +5,7 @@ local it = lp.Backpack
 local w = workspace
 local rs = game:GetService("ReplicatedStorage")
 local imgui = loadstring(game:HttpsGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/CustomImGUI/source.lua"))()
+local typeloader = loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/ScriptPart/Type.lua"))()
 local positions = {
     CFrame.new(-51.5656433, 65.0000458, 1369.09009),
     CFrame.new(-51.5656433, 65.0000458, 2139.09009),
