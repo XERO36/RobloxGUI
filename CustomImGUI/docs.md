@@ -2,7 +2,7 @@
 # ImGUI Library Documentation
 
 A clean, minimalist UI library designed for custom tools and interfaces in Roblox. 
-<img src="https://raw.githubusercontent.com/XERO36/RobloxGUI/main/CustomImGUI/PhotoshopPNG-Example.png" width="320" height="320" alt="Photoshop PNG Example">
+<img src="https://raw.githubusercontent.com/XERO36/RobloxGUI/main/CustomImGUI/PhotoshopPNG-Example.png" width="420" height="320" alt="Photoshop PNG Example">
 
 ---
 
