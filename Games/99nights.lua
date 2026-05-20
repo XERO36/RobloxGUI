@@ -6,10 +6,12 @@ local Armor = {"Leather Body", "Iron Body", "Thorn Body", "Riot Shield", "Alien 
 local weapons = {"Spear", "Morningstar", "Laser Sword", "Ice Sword", "Revolver", "Rifle", "Shotgun"}
 local eatable = {"Carrot", "Berry", "Chilli", "Apple", "Cooked Morsel", "Cooked Steak"}
 local tobring = {"Carrot", "Berry", "Chilli", "Apple", "Morsel", "Steak"}
-local enemys = workspace:FindFirstChild("Characters") -- but check each item inside the folder without getting the players body yk what I mean
+
+local enemys = workspace:FindFirstChild("Characters")
+
 local feedFire = false
 local lookingforpl = false
--- Example layout setup if loading inline
+
 local imgui = loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/CustomImGUI/source.lua"))()
 
 local window = imgui:createWindow({
@@ -18,23 +20,36 @@ local window = imgui:createWindow({
         Creator = "ShadowDev"
     }
 })
+
 local mainTab = window:createTab("Main")
 local visualTab = window:createTab("Visual")
+
 local MFunc = mainTab:AddLabel("Main functions")
+
 local autoFire = mainTab:AddToggle({
     Name = "Auto Fire",
     Default = false,
     Callback = function(state)
-        -- auto fire function 
+        feedFire = state
+        
+        if state then
+            print("Auto fire enabled")
+        else
+            print("Auto fire disabled")
+        end
     end
 })
-for _, in ipairs(Scraps) do 
-  local killBtn = mainTab:AddButton({
-    Name = Scraps,
-    Callback = function()
-        -- bring
-    end
-})
+
+-- Create buttons for each scrap item
+for _, scrapName in ipairs(Scraps) do
+    mainTab:AddButton({
+        Name = scrapName,
+        Callback = function()
+            print("Bring:", scrapName)
+
+            -- your bring code here
+        end
+    })
 end
 
 local MValuer = mainTab:AddLabel("Main Values for the Main functions")
