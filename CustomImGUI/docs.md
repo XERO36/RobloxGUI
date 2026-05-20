@@ -26,8 +26,8 @@ imgui:notify(title, text, icon)
 ```
 
 * **Parameters:**
-* `title` (string, Optional): The bold text header. Defaults to `"Notification"`.
-* `text` (string, Optional): The main message body. Defaults to `"Hello world!"`.
+* `title` (string, required): The bold text header. Defaults to `"Notification"`.
+* `text` (string, required): The main message body. Defaults to `"Hello world!"`.
 * `icon` (string, Optional): The Roblox Asset ID for the thumbnail. Defaults to `"rbxassetid://6031091004"`.
 
 
