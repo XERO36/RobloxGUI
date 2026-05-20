@@ -2,7 +2,10 @@ local imgui = {}
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
-
+local writefile = writefile or write or function() error("writefile not supported") end
+local readfile  = readfile  or read  or function() error("readfile not supported") end
+local isfile    = isfile    or fileexists or function() return false end
+local makefolder = makefolder or make_dir or function() end
 mouse.Icon = "rbxassetid://84128666510737"
 --// NOTIFY
 function imgui:notify(title, text, icon)
