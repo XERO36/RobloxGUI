@@ -24,11 +24,11 @@ elseif getX() <= 1024 and getY() <= 1366 then
 else
 	device = "PC"
 end
-    local c8ot92 = Instance.new("ScreenGui",game.CoreGUI)
-    local sgui = c8ot92
-
-    local main = Instance.new("Frame",sgui)
-    local maincorner =  Instance.new("UICorner",main)
+    
+		
+		if device == "Phone" then 
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUiI/main/Exec/devicemobile.lua"))()
+  
     
 
     
