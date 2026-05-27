@@ -10,6 +10,8 @@ function clhud.add(n)
 
     local main = Instance.new("Frame",sgui)
     local maincorner =  Instance.new("UICorner",main)
+    local device 
+
     
   end
 end
