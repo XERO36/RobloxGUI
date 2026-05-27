@@ -28,10 +28,13 @@ end
 		
 		if device == "Phone" then 
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUiI/main/Exec/devicemobile.lua"))()
-  
-    
-
-    
+		elseif device == "Tablet" then
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUiI/main/Exec/devicetablet.lua"))()
+		elseif device == "PC" then
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUiI/main/Exec/devicepc.lua"))()
+		else
+			error("ERROR")
+		end
   end
 end
 
