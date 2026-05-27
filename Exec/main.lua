@@ -8,7 +8,7 @@ function clhud.add(n)
     local c8ot92 = Instance.new("ScreenGui",game.CoreGUI)
     local sgui = c8ot92
 
-    
+    local frame = Instance.new("Frame",sgui)
   end
 end
 
