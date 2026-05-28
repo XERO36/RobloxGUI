@@ -19,47 +19,4 @@ local ScriptBloxAPI = (function()
     return API
 end)()
 
--- UI Setup
-local CoreGui = game:GetService("CoreGui")
-local ScreenGui = Instance.new("ScreenGui", CoreGui)
-
-local MainFrame = Instance.new("ScrollingFrame", ScreenGui)
-MainFrame.Size = UDim2.new(0, 350, 0, 450)
-MainFrame.Position = UDim2.new(0.5, -175, 0.5, -225)
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-MainFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Automatic canvas sizing handles this
-MainFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
-
-local ListLayout = Instance.new("UIListLayout", MainFrame)
-ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-ListLayout.Padding = UDim.new(0, 5)
-
--- Populate UI Function
-local function populateUI(apiResponse)
-    if not apiResponse.success then
-        local errLabel = Instance.new("TextLabel", MainFrame)
-        errLabel.Text = "Failed to load scripts."
-        errLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
-        errLabel.Size = UDim2.new(1, 0, 0, 50)
-        return
-    end
-
-    for _, scriptInfo in ipairs(apiResponse.scripts) do
-        local label = Instance.new("TextLabel", MainFrame)
-        label.Text = string.format("Title: %s\nSlug: %s", scriptInfo.title, scriptInfo.slug)
-        label.Size = UDim2.new(1, -10, 0, 60)
-        label.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        label.TextColor3 = Color3.fromRGB(240, 240, 240)
-        label.TextWrapped = true
-        label.TextXAlignment = Enum.TextXAlignment.Left
-    end
-end
-
--- Toggle between your two custom API options:
--- Option A: Fetch Recent
-local data = ScriptBloxAPI.getRecent()
-
--- Option B: Search Custom Query
--- local data = ScriptBloxAPI.search("fly")
-
-populateUI(data)
+reutrn ScriptBloxAPI
