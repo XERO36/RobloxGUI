@@ -59,3 +59,5 @@ ldr(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/main/Exec/g
     r = true
 else
 end
+
+return NovaX
