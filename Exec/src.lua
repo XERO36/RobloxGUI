@@ -1,9 +1,5 @@
 local NovaX = {}
-local services = {}
 
-for _, service in ipairs(game:GetChildren()) do
-    table.insert(services, service)
-end
 -- Basic Executor stuff
 local EXEC_NAME    = "Nova X"
 local EXEC_VER     = "1.0.0"
@@ -55,3 +51,7 @@ local crypt          = crypt or syn and syn.crypt or {
     encrypt          = encrypt or (crypt and crypt.encrypt),
     decrypt          = decrypt or (crypt and crypt.decrypt)
 }
+
+-- end of the basic executor
+-- start of GUI INITALIZATION
+local sgui = Instance.new("ScreenGUI",game:GetService("CoreGui"))
