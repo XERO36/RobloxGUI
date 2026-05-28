@@ -1,1 +1,9 @@
 local SGUI = Instance.new("ScreenGui",game.CoreGui)
+local diaco = Instance.new("Frame",SGUI)
+local jgoh = Instance.new("UICorner",diaco)
+local vhvj = Instance.new("TextButton",diaco) -- diaco
+local xixo = Instance.new("UICorner",vhvj) -- diaco.vhvj
+local sjao = Instance.new("TextButton",diaco) -- diaco
+local ovpaw = Instance.new("UICorner",sjao) -- diaco.sjao
+local bkot = Instance.new("Frame",SGUI)
+local bibo = Instance.new("Frame",SGUI)
