@@ -51,7 +51,11 @@ local crypt          = crypt or syn and syn.crypt or {
     encrypt          = encrypt or (crypt and crypt.encrypt),
     decrypt          = decrypt or (crypt and crypt.decrypt)
 }
-
+_G.runned = false
+local r = _G.runned
 -- end of the basic executor
--- start of GUI INITALIZATION
-local sgui = Instance.new("ScreenGUI",game:GetService("CoreGui"))
+if r == false then 
+ldr(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/main/Exec/gui.lua"))()
+    r = true
+else
+end
