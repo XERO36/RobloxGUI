@@ -9,3 +9,4 @@ local EXEC_NAME    = "Nova X"
 local EXEC_VER     = "1.0.0"
 local EXEC_AUTHOR  = "SDev"
 local runnning = false
+local DISCORD_INVITE = "notspecified" -- none 
