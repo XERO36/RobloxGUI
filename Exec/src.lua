@@ -117,6 +117,7 @@ NovaX.islclosure = islclosure
 NovaX.clonefunction = clonefunction
 NovaX.crypt = crypt
 
+getgenv().NovaX = NovaX
 -- Execution Guard Logic
 if _G.runned == nil or _G.runned == false then 
     _G.runned = true -- Set it to true so it doesn't double-load
