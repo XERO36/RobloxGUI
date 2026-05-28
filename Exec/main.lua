@@ -6,7 +6,7 @@ function clhud.add(n)
   if n == "main.hud" then
 		
 
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/main/Exec/devicemobile.lua"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/main/Exec/src.lua"))()
 		
   end
 end
