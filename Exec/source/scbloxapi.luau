@@ -19,4 +19,4 @@ local ScriptBloxAPI = (function()
     return API
 end)()
 
-reutrn ScriptBloxAPI
+return  ScriptBloxAPI
