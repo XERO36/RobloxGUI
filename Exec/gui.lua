@@ -26,13 +26,13 @@ tab2Btn.BackgroundColor3 = Color3.fromRGB(70, 70, 80)
 tab2Btn.TextColor3 = Color3.fromRGB(255,255,255)
 
 -- TAB FRAMES
-local bkot = Instance.new("Frame", diaco)
+local bkot = Instance.new("Frame", diaco) -- Execute
 bkot.Name = "bkot"
 bkot.Size = UDim2.new(1, -20, 1, -50)
 bkot.Position = UDim2.new(0, 10, 0, 40)
 bkot.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
 
-local bibo = Instance.new("Frame", diaco)
+local bibo = Instance.new("Frame", diaco) -- Cloud
 bibo.Name = "bibo"
 bibo.Size = UDim2.new(1, -20, 1, -50)
 bibo.Position = UDim2.new(0, 10, 0, 40)
@@ -46,6 +46,7 @@ local function showTab(tab)
   elseif tab == "bibo" then
     bkot.Visible = false
     bibo.Visibile = true
+		
   else
     warn("nottabwin")
 end
