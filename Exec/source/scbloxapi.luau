@@ -1,22 +1,52 @@
--- Paste the API Wrapper directly above if not using a physical ModuleScript
 local ScriptBloxAPI = (function()
-    -- [Insert the Module code from Section 1 here if executing as a single script]
     local API = {}
     local Http = game:GetService("HttpService")
-    local function f(u)
-        local s, r = pcall(function() return game:HttpGet(u) end)
-        if not s then return {success = false, scripts = {}} end
-        local ds, d = pcall(function() return Http:JSONDecode(r) end)
-        if not ds or not d.result or not d.result.scripts then return {success = false, scripts = {}} end
-        local c = {}
-        for _, v in ipairs(d.result.scripts) do
-            table.insert(c, {title = v.title or "N/A", slug = v.slug or "N/A"})
+    
+    -- Helper function to handle API requests
+    local function fetchData(url)
+        local success, response = pcall(function() 
+            return game:HttpGet(url) 
+        end)
+        
+        if not success then 
+            return {success = false, error = "HTTP Request Failed", scripts = {}} 
         end
-        return {success = true, scripts = c}
+        
+        local decodeSuccess, data = pcall(function() 
+            return Http:JSONDecode(response) 
+        end)
+        
+        if not decodeSuccess or not data or not data.result or not data.result.scripts then 
+            return {success = false, error = "Invalid API Response", scripts = {}} 
+        end
+        
+        local cleanedScripts = {}
+        for _, scriptData in ipairs(data.result.scripts) do
+            table.insert(cleanedScripts, {
+                title = scriptData.title or "N/A",
+                slug = scriptData.slug or "N/A",
+                gameName = scriptData.game and scriptData.game.name or "N/A" -- Optional: Gets the game name too
+            })
+        end
+        
+        return {success = true, scripts = cleanedScripts}
     end
-    function API.search(q) return f("https://scriptblox.com/api/script/search?q=" .. Http:UrlEncode(q)) end
-    function API.getRecent() return f("https://scriptblox.com/api/script/fetch") end
+    
+    -- Search for scripts (Optional page parameter added)
+    function API.search(query, page)
+        local pageParam = page and ("&page=" .. tostring(page)) or ""
+        local url = "https://scriptblox.com/api/script/search?q=" .. Http:UrlEncode(query) .. pageParam
+        return fetchData(url)
+    end
+    
+    -- Fetch recent scripts (Optional page parameter added)
+    function API.getRecent(page)
+        local pageParam = page and ("?page=" .. tostring(page)) or ""
+        local url = "https://scriptblox.com/api/script/fetch" .. pageParam
+        return fetchData(url)
+    end
+    
     return API
 end)()
 
-return  ScriptBloxAPI
+return ScriptBloxAPI
