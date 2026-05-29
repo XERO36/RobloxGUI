@@ -47,19 +47,5 @@ local function showTab(tab)
   elseif tab == "bibo" then
     bkot.Visible = false
     bibo.Visibile = true
-		NovaX.
+		NovaX.loadsring = "https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/Exec/source/scbloxapi.lua"
   else
-    warn("nottabwin")
-end
-
--- DEFAULT TAB
-showTab("bkot")
-
--- BUTTON EVENTS
-tab1Btn.MouseButton1Click:Connect(function()
-	showTab("bkot")
-end)
-
-tab2Btn.MouseButton1Click:Connect(function()
-	showTab("bibo")
-end)
