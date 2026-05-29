@@ -1,3 +1,4 @@
+loadstring(game:Httpget("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/Exec/src.lua"))()
 local SGUI = Instance.new("ScreenGui", game.CoreGui)
 SGUI.Name = "SGUI"
 SGUI.ResetOnSpawn = false
@@ -46,7 +47,7 @@ local function showTab(tab)
   elseif tab == "bibo" then
     bkot.Visible = false
     bibo.Visibile = true
-		
+		NovaX.
   else
     warn("nottabwin")
 end
