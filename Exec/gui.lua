@@ -1,7 +1,14 @@
-loadstring(game:Httpget("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/Exec/src.lua"))()
-local SGUI = Instance.new("ScreenGui", game.CoreGui)
+-- Execute the initial script which defines NovaX
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/Exec/src.lua"))()
+end)
+
+local SGUI = Instance.new("ScreenGui")
 SGUI.Name = "SGUI"
 SGUI.ResetOnSpawn = false
+
+local success, coreGui = pcall(function() return game:GetService("CoreGui") end)
+SGUI.Parent = success and coreGui or game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
 local diaco = Instance.new("Frame", SGUI)
 diaco.Size = UDim2.new(0, 300, 0, 260)
@@ -17,49 +24,56 @@ tab1Btn.Size = UDim2.new(0, 140, 0, 30)
 tab1Btn.Position = UDim2.new(0, 10, 0, 5)
 tab1Btn.Text = "Tab 1"
 tab1Btn.BackgroundColor3 = Color3.fromRGB(70, 70, 80)
-tab1Btn.TextColor3 = Color3.fromRGB(255,255,255)
+tab1Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 local tab2Btn = Instance.new("TextButton", diaco)
 tab2Btn.Size = UDim2.new(0, 140, 0, 30)
 tab2Btn.Position = UDim2.new(0, 150, 0, 5)
 tab2Btn.Text = "Tab 2"
 tab2Btn.BackgroundColor3 = Color3.fromRGB(70, 70, 80)
-tab2Btn.TextColor3 = Color3.fromRGB(255,255,255)
+tab2Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 -- TAB FRAMES
-local bkot = Instance.new("Frame", diaco) -- Execute
+local bkot = Instance.new("Frame", diaco)
 bkot.Name = "bkot"
 bkot.Size = UDim2.new(1, -20, 1, -50)
 bkot.Position = UDim2.new(0, 10, 0, 40)
 bkot.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
+bkot.BorderSizePixel = 0
 
-local bibo = Instance.new("Frame", diaco) -- Cloud
+local bibo = Instance.new("Frame", diaco)
 bibo.Name = "bibo"
 bibo.Size = UDim2.new(1, -20, 1, -50)
 bibo.Position = UDim2.new(0, 10, 0, 40)
 bibo.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
+bibo.BorderSizePixel = 0
 
 -- TAB FUNCTION
-local function showTab(tab)
-	if tab == "bkot" then
-    bkot.Visible = true
-    bibo.Visible = false 
-  elseif tab == "bibo" then
-    bkot.Visible = false
-    bibo.Visibile = true
-		NovaX.loadsring = "https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/Exec/source/scbloxapi.lua"
-  else
-    warn("nottabwin")
+local function showTab(tabName)
+    if tabName == "bkot" then
+        bkot.Visible = true
+        bibo.Visible = false
+    elseif tabName == "bibo" then
+        bkot.Visible = false
+        bibo.Visible = true
+        
+        -- Safe check: changes the property on the NovaX object loaded from your github src
+        if NovaX then
+            NovaX.loadstring = "https://raw.githubusercontent.com/XERO36/RobloxGUI/refs/heads/main/Exec/source/scbloxapi.lua"
+        else
+            warn("NovaX was not found in the environment!")
+        end
+    end
 end
 
--- DEFAULT TAB
+-- Default View
 showTab("bkot")
 
--- BUTTON EVENTS
+-- Button Connections
 tab1Btn.MouseButton1Click:Connect(function()
-	showTab("bkot")
+    showTab("bkot")
 end)
-	
+
 tab2Btn.MouseButton1Click:Connect(function()
-	showTab("bibo")
+    showTab("bibo")
 end)
