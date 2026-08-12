@@ -1,5 +1,4 @@
 local vim = game:GetService("VirtualInputManager")
-
 local shift = Enum.KeyCode.LeftShift
 
 local keyMap = {
@@ -12,71 +11,38 @@ local keyMap = {
     ["s"] = Enum.KeyCode.S, ["t"] = Enum.KeyCode.T, ["u"] = Enum.KeyCode.U,
     ["v"] = Enum.KeyCode.V, ["w"] = Enum.KeyCode.W, ["x"] = Enum.KeyCode.X,
     ["y"] = Enum.KeyCode.Y, ["z"] = Enum.KeyCode.Z,
-
-    ["0"] = Enum.KeyCode.Zero,
-    ["1"] = Enum.KeyCode.One,
-    ["2"] = Enum.KeyCode.Two,
-    ["3"] = Enum.KeyCode.Three,
-    ["4"] = Enum.KeyCode.Four,
-    ["5"] = Enum.KeyCode.Five,
-    ["6"] = Enum.KeyCode.Six,
-    ["7"] = Enum.KeyCode.Seven,
-    ["8"] = Enum.KeyCode.Eight,
-    ["9"] = Enum.KeyCode.Nine,
-
-    [" "] = Enum.KeyCode.Space
+    ["0"] = Enum.KeyCode.Zero, ["1"] = Enum.KeyCode.One, ["2"] = Enum.KeyCode.Two,
+    ["3"] = Enum.KeyCode.Three, ["4"] = Enum.KeyCode.Four, ["5"] = Enum.KeyCode.Five,
+    ["6"] = Enum.KeyCode.Six, ["7"] = Enum.KeyCode.Seven, ["8"] = Enum.KeyCode.Eight,
+    ["9"] = Enum.KeyCode.Nine, [" "] = Enum.KeyCode.Space
 }
 
--- symbols that require SHIFT
 local shiftMap = {
-    ["!"] = Enum.KeyCode.One,
-    ["@"] = Enum.KeyCode.Two,
-    ["#"] = Enum.KeyCode.Three,
-    ["$"] = Enum.KeyCode.Four,
-    ["%"] = Enum.KeyCode.Five,
-    ["^"] = Enum.KeyCode.Six,
-    ["&"] = Enum.KeyCode.Seven,
-    ["*"] = Enum.KeyCode.Eight,
-    ["("] = Enum.KeyCode.Nine,
-    [")"] = Enum.KeyCode.Zero,
+    ["!"] = Enum.KeyCode.One, ["@"] = Enum.KeyCode.Two, ["#"] = Enum.KeyCode.Three,
+    ["$"] = Enum.KeyCode.Four, ["%"] = Enum.KeyCode.Five, ["^"] = Enum.KeyCode.Six,
+    ["&"] = Enum.KeyCode.Seven, ["*"] = Enum.KeyCode.Eight, ["("] = Enum.KeyCode.Nine,
+    [")"] = Enum.KeyCode.Zero
 }
 
-local function type(text)
-    for i = 1, #text do
-        local char = text:sub(i, i)
-        local lower = char:lower()
+local function typeSingleKey(char, holdDuration)
+    local key = shiftMap[char] or keyMap[char:lower()]
+    if not key then return end
 
-        local key
-        local needsShift = false
+    local needsShift = shiftMap[char] ~= nil or char:match("%u") ~= nil
+    local holdTime = holdDuration or 1 --Default wait timer in seconds
 
-        -- symbol first
-        if shiftMap[char] then
-            key = shiftMap[char]
-            needsShift = true
+    -- Press keys down
+    if needsShift then
+        vim:SendKeyEvent(true, shift, false, game)
+    end
+    vim:SendKeyEvent(true, key, false, game)
 
-        -- letters / numbers / space
-        else
-            key = keyMap[lower]
+    -- Wait timer (Hold state)
+    task.wait(holdTime)
 
-            if char:match("%u") then
-                needsShift = true
-            end
-        end
-
-        if key then
-            if needsShift then
-                vim:SendKeyEvent(true, shift, false, game)
-            end
-
-            vim:SendKeyEvent(true, key, false, game)
-            task.wait(0.03)
-            vim:SendKeyEvent(false, key, false, game)
-
-            if needsShift then
-                vim:SendKeyEvent(false, shift, false, game)
-            end
-
-            task.wait(0.03)
-        end
+    -- Release keys
+    vim:SendKeyEvent(false, key, false, game)
+    if needsShift then
+        vim:SendKeyEvent(false, shift, false, game)
     end
 end
