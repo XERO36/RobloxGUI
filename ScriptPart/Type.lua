@@ -24,7 +24,7 @@ local shiftMap = {
     [")"] = Enum.KeyCode.Zero
 }
 
-local function typeSingleKey(char, holdDuration)
+local function click(char, holdDuration)
     local key = shiftMap[char] or keyMap[char:lower()]
     if not key then return end
 
